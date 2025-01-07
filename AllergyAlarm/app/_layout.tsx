@@ -9,10 +9,8 @@ import { initializeApp } from "firebase/app";
 import firebaseConfig from "../firebaseConfig";
 import AuthProvider from '@/components/AuthProvider';
 
-
 import { useColorScheme } from '@/hooks/useColorScheme';
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -36,11 +34,14 @@ export default function RootLayout() {
     <AuthProvider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
+          {/* <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)/Login" options={{ title: 'Login' }} />
+          <Stack.Screen name="(auth)/SignUp" options={{ title: 'Sign Up' }} /> */}
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" options={{ title: 'Not Found' }} />
         </Stack>
         <StatusBar style="auto" />
       </ThemeProvider>
-      </AuthProvider>  
+    </AuthProvider>
   );
 }

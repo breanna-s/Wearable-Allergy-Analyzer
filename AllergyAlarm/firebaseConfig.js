@@ -1,8 +1,6 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, initializeAuth, browserLocalPersistence } from 'firebase/auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Your Firebase configuration object
+// Firebase configuration object
 const firebaseConfig = {
   apiKey: "AIzaSyARH4natEQIIBvjYWimBVplHn8IQXspG9g",
   authDomain: "wearable-allergy-alarm.firebaseapp.com",
@@ -15,12 +13,4 @@ const firebaseConfig = {
 // Initialize Firebase app
 const app = initializeApp(firebaseConfig);
 
-// Initialize Firebase Auth with AsyncStorage for persistence
-const auth = initializeAuth(app, {
-  persistence: browserLocalPersistence, // Use AsyncStorage for persistence
-});
-
-export { auth };
-
-// You can export the firebaseConfig if you need it in other parts of your app
 export default firebaseConfig;
