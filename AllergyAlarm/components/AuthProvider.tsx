@@ -1,10 +1,9 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
-import { getAuth, onAuthStateChanged, User, initializeAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
-import firebaseConfig from '../firebaseConfig';
+import { getAuth, onAuthStateChanged, User, initializeAuth, getReactNativePersistence } from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 import { useRouter } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Use AsyncStorage for Expo
-import { getReactNativePersistence } from 'firebase/auth'; // Import getReactNativePersistence
+import firebaseConfig from '../firebaseConfig';
 
 // Create a Context for Auth State
 const AuthContext = createContext<{ user: User | null }>({ user: null });
@@ -19,12 +18,13 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     // Initialize Firebase app
     const app = initializeApp(firebaseConfig);
 
-    // Initialize Firebase Auth with AsyncStorage for persistence
+    // Initialize Firebase Auth with AsyncStorage persistence
     const auth = initializeAuth(app, {
-      persistence: getReactNativePersistence(AsyncStorage), // Pass AsyncStorage through getReactNativePersistence
+      persistence: getReactNativePersistence(AsyncStorage) // Set persistence to AsyncStorage
     });
 
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    // Listen for auth state changes
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user); // Set user when authenticated
       } else {
@@ -32,8 +32,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         router.push('./app/Login'); // Optionally redirect to login if not authenticated
       }
     });
-
-    return unsubscribe; // Cleanup listener on unmount
   }, [router]);
 
   return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>;
