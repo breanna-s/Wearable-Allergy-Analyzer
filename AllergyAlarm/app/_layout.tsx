@@ -5,7 +5,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { initializeApp } from "firebase/app";
-import firebaseConfig from "../firebaseConfig";
+import firebaseConfig from "./firebaseConfig";
 import AuthProvider from '@/components/AuthProvider';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -24,6 +24,7 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
+
   if (!loaded) {
     return null;
   }
@@ -32,11 +33,11 @@ export default function RootLayout() {
     <AuthProvider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
-          {/* Ensure the following routes exist in your app structure */}
-          <Stack.Screen name="(auth)/index" options={{ headerShown: false }} />
+          {/* Ensure the paths are correct for your screens */}
+          <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="(auth)/Login" options={{ title: 'Login' }} />
           <Stack.Screen name="(auth)/SignUp" options={{ title: 'Sign Up' }} />
-          <Stack.Screen name="+not-found" options={{ title: 'Not Found' }} />
+          {/* No need to include +not-found unless you're expecting specific 404 handling */}
         </Stack>
         <StatusBar style="auto" />
       </ThemeProvider>

@@ -3,7 +3,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, User, initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 import { useRouter } from 'expo-router';
-import firebaseConfig from '../firebaseConfig';
+import firebaseConfig from '../app/firebaseConfig';
 
 // Create a Context for Auth State
 const AuthContext = createContext<{ user: User | null }>({ user: null });
