@@ -1,17 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, Link } from 'expo-router';
 import { getAuth, signOut } from 'firebase/auth';
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 
 const Separator = () => <View style={styles.separator} />;
-
-// const attemptSignOut = () => {
-//   try {
-//     signOut();
-
-//   }
-// };
 
 const Index = () => {
   const router = useRouter();
@@ -22,7 +15,6 @@ const Index = () => {
         <View style={styles.container}>
           <Text style={styles.title}>Welcome back!</Text>
 
-          <Separator />
 
           <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/(auth)/Login')}>
             <Text style={styles.buttonText}>Log In</Text>
@@ -30,6 +22,14 @@ const Index = () => {
           <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/(auth)/SignUp')}>
             <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
+
+          {/*  I cannot for the life of me figure out why this isn't working */}
+
+          {/*
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => router.replace('/(auth)/Survey')}>
+            <Text style={styles.buttonText}>Survey</Text>
+          </TouchableOpacity>
+          */}
         </View>
       </SafeAreaView> 
     </SafeAreaProvider>
