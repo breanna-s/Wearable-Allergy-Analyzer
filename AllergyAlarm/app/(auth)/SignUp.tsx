@@ -15,7 +15,8 @@ const Signup = () => {
 
   useEffect(() => {
     if (user) {
-      router.push('/'); // Navigate to the home screen if already logged in
+      // Temporarily turned off so I can access all screens while logged in
+      //router.push('/'); // Navigate to the home screen if already logged in
     }
   }, [user, router]);
 
@@ -80,28 +81,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
     padding: 20,
     backgroundColor: '#000', // Black background
   },
   input: {
+    width: '100%',
     height: 50,
     borderColor: '#444',
     borderWidth: 1,
     borderRadius: 8,
-    marginBottom: 15,
-    paddingHorizontal: 12,
-    color: '#fff', // White text
     backgroundColor: '#333', // Dark gray input background
+    paddingLeft: 15,
+    marginBottom: 15,
+    color: '#000', // Black text color
   },
   button: {
-    backgroundColor: '#1e90ff', // Blue button
-    paddingVertical: 12,
-    borderRadius: 8,
+    width: 'auto',
+    height: 50,
+    backgroundColor: '#FD98A9', // Pink button
+    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,
+    borderRadius: 8,
+    paddingHorizontal: 30,
+    marginBottom: 10,
   },
   buttonText: {
-    color: '#fff', // White text
+    color: '#f1fffa',
     fontSize: 16,
     fontWeight: 'bold',
   },

@@ -1,9 +1,17 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
+import { getAuth, signOut } from 'firebase/auth';
 import {SafeAreaView, SafeAreaProvider} from 'react-native-safe-area-context';
 
 const Separator = () => <View style={styles.separator} />;
+
+// const attemptSignOut = () => {
+//   try {
+//     signOut();
+
+//   }
+// };
 
 const Index = () => {
   const router = useRouter();
@@ -11,21 +19,18 @@ const Index = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <View>
-          <Text style={styles.title}>Welcome to the Auth Group</Text>
+        <View style={styles.container}>
+          <Text style={styles.title}>Welcome back!</Text>
+
+          <Separator />
+
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/(auth)/Login')}>
+            <Text style={styles.buttonText}>Log In</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonContainer} onPress={() => router.push('/(auth)/SignUp')}>
+            <Text style={styles.buttonText}>Sign Up</Text>
+          </TouchableOpacity>
         </View>
-        <Separator />
-        <View style={styles.fixToText}>
-          <Button title="Log In"
-           color='#FDBAC1' 
-           onPress={() => router.push('/(auth)/Login')} />
-        </View>
-        <View style={styles.fixToText}>
-          <Button title="Sign Up" 
-           color='#FDBAC1'
-           onPress={() => router.push('/(auth)/SignUp')} />
-        </View>
-        {/* </View> */}
       </SafeAreaView> 
     </SafeAreaProvider>
   );
@@ -35,25 +40,36 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    marginHorizontal: 16,
-    marginVertical: 10,
+    alignItems: 'center',
+    margin: 10,
   },
   title: {
-    color: '#555555',
-    textAlign: 'center',
-    marginVertical: 8,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#dadada',
+    margin: 10,
+    //textAlign: 'center',
   },
-  fixToText: {
-   // flexDirection: 'row',
-    color: '#FDBAC1',
-    marginVertical:10,
-    paddingHorizontal: 75,
-    textAlign: 'center',
-    justifyContent: 'space-between',
+  buttonContainer: {
+    width: 'auto',
+    height: 'auto',
+    minHeight: 50,
+    minWidth: 100,
+    backgroundColor: '#FD98A9', // Pink button
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+    paddingHorizontal: 30,
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: '#f1fffa',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   separator: {
     marginVertical: 10,
-    borderBottomColor: '#737373',
+    borderColor: 'f1fffa',
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
 });

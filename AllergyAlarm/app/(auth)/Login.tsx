@@ -14,7 +14,8 @@ const Login = () => {
   // Redirect if user is already authenticated
   useEffect(() => {
     if (user) {
-      router.push('/'); // Navigate to the home screen if already logged in
+      // Temporarily turned off so I can access all screens while logged in
+      //router.push('/'); // Navigate to the home screen if already logged in
     }
   }, [user, router]);
 
@@ -54,7 +55,7 @@ const Login = () => {
       />
       {error ? <Text style={styles.error}>{error}</Text> : null}
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
+        <Text style={styles.buttonText}>Log In</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => router.push('/SignUp')}>
         <Text style={styles.linkText}>Don't have an account? Sign Up</Text>
@@ -83,22 +84,23 @@ const styles = StyleSheet.create({
     borderColor: '#444',
     borderWidth: 1,
     borderRadius: 8,
-    backgroundColor: '#fff', // White background for input
+    backgroundColor: '#333', // Dark gray input background
     paddingLeft: 15,
     marginBottom: 15,
     color: '#000', // Black text color
   },
   button: {
-    width: '100%',
+    width: 'auto',
     height: 50,
-    backgroundColor: '#1e90ff', // Blue button
+    backgroundColor: '#FD98A9', // Pink button
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 8,
-    marginBottom: 15,
+    paddingHorizontal: 30,
+    marginBottom: 10,
   },
   buttonText: {
-    color: '#fff',
+    color: '#f1fffa',
     fontSize: 16,
     fontWeight: 'bold',
   },
