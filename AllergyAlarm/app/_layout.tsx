@@ -37,6 +37,7 @@ export default function RootLayout() {
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="(auth)/Login" options={{ title: 'Login' }} />
           <Stack.Screen name="(auth)/SignUp" options={{ title: 'Sign Up' }} />
+          <Stack.Screen name="(auth)/Home" options={{ title: 'Home' }} />
           <Stack.Screen name="(auth)/Survey" options={{ title: 'Survey' }} />
           {/* No need to include +not-found unless you're expecting specific 404 handling */}
         </Stack>

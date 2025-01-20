@@ -29,7 +29,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser(user); // Set user when authenticated
       } else {
         setUser(null); // Clear user when not authenticated
-        router.push('./app/Login'); // Optionally redirect to login if not authenticated
+        router.push('./app/(auth)/Login'); // Optionally redirect to login if not authenticated
       }
     });
   }, [router]);

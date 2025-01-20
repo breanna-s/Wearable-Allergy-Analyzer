@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TextInput, TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { getDatabase, ref, set } from 'firebase/database'; // Import Firebase Database
 import { useRouter } from 'expo-router';
 import { useAuth } from '@/components/AuthProvider';
 
@@ -16,18 +17,26 @@ const Signup = () => {
   useEffect(() => {
     if (user) {
       // Temporarily turned off so I can access all screens while logged in
-      //router.push('/'); // Navigate to the home screen if already logged in
+      router.push('/Home'); // Navigate to the home screen if already logged in
     }
   }, [user, router]);
 
   const handleSignup = async () => {
     const auth = getAuth();
+    const db = getDatabase(); // Initialize Realtime Database
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log('User:', userCredential.user);
-      console.log('City:', city);
-      console.log('State:', state);
-      router.push('/'); // Navigate to the home screen after successful signup
+      const { uid } = userCredential.user;
+
+      // Save additional user data (city and state) to Firebase Realtime Database
+      await set(ref(db, `users/${uid}`), {
+        email,
+        city,
+        state,
+      });
+
+      console.log('User created and data saved to database:', { uid, email, city, state });
+      router.push('/Home'); // Navigate to the home screen after successful signup
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);
@@ -94,7 +103,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#333', // Dark gray input background
     paddingLeft: 15,
     marginBottom: 15,
-    color: '#000', // Black text color
+    color: '#f1fffa', // Light text color
   },
   button: {
     width: 'auto',

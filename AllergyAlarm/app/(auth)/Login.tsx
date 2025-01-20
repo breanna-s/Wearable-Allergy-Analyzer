@@ -16,6 +16,7 @@ const Login = () => {
     if (user) {
       // Temporarily turned off so I can access all screens while logged in
       //router.push('/'); // Navigate to the home screen if already logged in
+      router.push('/Home');
     }
   }, [user, router]);
 
@@ -23,7 +24,7 @@ const Login = () => {
     const auth = getAuth();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push('/'); // Navigate to the home screen after successful login
+      router.push('/Home'); // Navigate to the home screen after successful login
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);
