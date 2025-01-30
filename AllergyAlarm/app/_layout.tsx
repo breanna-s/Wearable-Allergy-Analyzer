@@ -33,13 +33,11 @@ export default function RootLayout() {
     <AuthProvider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
-          {/* Ensure the paths are correct for your screens */}
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="(auth)/Login" options={{ title: 'Login' }} />
           <Stack.Screen name="(auth)/SignUp" options={{ title: 'Sign Up' }} />
-          <Stack.Screen name="(auth)/Home" options={{ title: 'Home' }} />
-          <Stack.Screen name="(auth)/Survey" options={{ title: 'Survey' }} />
-          {/* No need to include +not-found unless you're expecting specific 404 handling */}
+          <Stack.Screen name="(auth)/Home" options={{ title: 'Home', headerShown: false }} />
+          <Stack.Screen name="(auth)/Survey" options={{ title: 'Survey', headerShown: false }} />
         </Stack>
         <StatusBar style="auto" />
       </ThemeProvider>

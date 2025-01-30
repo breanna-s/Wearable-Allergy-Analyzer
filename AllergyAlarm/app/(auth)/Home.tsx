@@ -12,11 +12,6 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home screen</Text>
-      
-      {/* Survey Button */}
-      <TouchableOpacity style={styles.button} onPress={navigateToSurvey}>
-        <Text style={styles.buttonText}>Go to Survey</Text>
-      </TouchableOpacity>
     </View>
   );
 }

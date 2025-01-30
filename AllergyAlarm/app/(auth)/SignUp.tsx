@@ -17,7 +17,7 @@ const Signup = () => {
   useEffect(() => {
     if (user) {
       // Temporarily turned off so I can access all screens while logged in
-      router.push('/Home'); // Navigate to the home screen if already logged in
+      // router.push('/Home'); // Navigate to the home screen if already logged in
     }
   }, [user, router]);
 
@@ -36,7 +36,7 @@ const Signup = () => {
       });
 
       console.log('User created and data saved to database:', { uid, email, city, state });
-      router.push('/Home'); // Navigate to the home screen after successful signup
+      router.push('/Survey'); // Navigate to the home screen after successful signup
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);

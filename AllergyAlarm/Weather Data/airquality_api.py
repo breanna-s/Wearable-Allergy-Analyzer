@@ -1,5 +1,4 @@
 import openmeteo_requests
-
 import requests_cache
 import pandas as pd
 from retry_requests import retry
@@ -15,7 +14,9 @@ url = "https://air-quality-api.open-meteo.com/v1/air-quality"
 params = {
 	"latitude": 52.52,
 	"longitude": 13.41,
-	"hourly": ["pm10", "pm2_5", "dust", "alder_pollen", "birch_pollen", "grass_pollen", "mugwort_pollen", "olive_pollen", "ragweed_pollen"]
+	"current": ["us_aqi", "ozone", "dust", "alder_pollen", "birch_pollen", "grass_pollen", "mugwort_pollen", "olive_pollen", "ragweed_pollen"],
+	"forecast_days": 7,
+	"domains": "cams_global"
 }
 responses = openmeteo.weather_api(url, params=params)
 
@@ -26,33 +27,36 @@ print(f"Elevation {response.Elevation()} m asl")
 print(f"Timezone {response.Timezone()} {response.TimezoneAbbreviation()}")
 print(f"Timezone difference to GMT+0 {response.UtcOffsetSeconds()} s")
 
-# Process hourly data. The order of variables needs to be the same as requested.
-hourly = response.Hourly()
-hourly_pm10 = hourly.Variables(0).ValuesAsNumpy()
-hourly_pm2_5 = hourly.Variables(1).ValuesAsNumpy()
-hourly_dust = hourly.Variables(2).ValuesAsNumpy()
-hourly_alder_pollen = hourly.Variables(3).ValuesAsNumpy()
-hourly_birch_pollen = hourly.Variables(4).ValuesAsNumpy()
-hourly_grass_pollen = hourly.Variables(5).ValuesAsNumpy()
-hourly_mugwort_pollen = hourly.Variables(6).ValuesAsNumpy()
-hourly_olive_pollen = hourly.Variables(7).ValuesAsNumpy()
-hourly_ragweed_pollen = hourly.Variables(8).ValuesAsNumpy()
 
-hourly_data = {"date": pd.date_range(
-	start = pd.to_datetime(hourly.Time(), unit = "s", utc = True),
-	end = pd.to_datetime(hourly.TimeEnd(), unit = "s", utc = True),
-	freq = pd.Timedelta(seconds = hourly.Interval()),
-	inclusive = "left"
-)}
-hourly_data["pm10"] = hourly_pm10
-hourly_data["pm2_5"] = hourly_pm2_5
-hourly_data["dust"] = hourly_dust
-hourly_data["alder_pollen"] = hourly_alder_pollen
-hourly_data["birch_pollen"] = hourly_birch_pollen
-hourly_data["grass_pollen"] = hourly_grass_pollen
-hourly_data["mugwort_pollen"] = hourly_mugwort_pollen
-hourly_data["olive_pollen"] = hourly_olive_pollen
-hourly_data["ragweed_pollen"] = hourly_ragweed_pollen
+# Current values. The order of variables needs to be the same as requested.
+current = response.Current()
 
-hourly_dataframe = pd.DataFrame(data = hourly_data)
-print(hourly_dataframe)
+current_us_aqi = current.Variables(0).Value()
+
+current_ozone = current.Variables(1).Value()
+
+current_dust = current.Variables(2).Value()
+
+current_alder_pollen = current.Variables(3).Value()
+
+current_birch_pollen = current.Variables(4).Value()
+
+current_grass_pollen = current.Variables(5).Value()
+
+current_mugwort_pollen = current.Variables(6).Value()
+
+current_olive_pollen = current.Variables(7).Value()
+
+current_ragweed_pollen = current.Variables(8).Value()
+
+print(f"Current time {current.Time()}")
+
+print(f"Current us_aqi {current_us_aqi}")
+print(f"Current ozone {current_ozone}")
+print(f"Current dust {current_dust}")
+print(f"Current alder_pollen {current_alder_pollen}")
+print(f"Current birch_pollen {current_birch_pollen}")
+print(f"Current grass_pollen {current_grass_pollen}")
+print(f"Current mugwort_pollen {current_mugwort_pollen}")
+print(f"Current olive_pollen {current_olive_pollen}")
+print(f"Current ragweed_pollen {current_ragweed_pollen}")
